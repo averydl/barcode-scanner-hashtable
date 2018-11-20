@@ -33,16 +33,16 @@ int main() {
     // load UPC's into array/BST up to the i'th line
     load_partial(file_name, i-prev, prev);
 
-    // store randomly-selected UPC from the master list
-    UPC* upc = new UPC(full_list->get(rand() % (i+1)));
-
     // reset average array/bst clock times
     avg_array = 0;
     avg_bst = 0;
 
     // perform timing test for each of Array and BST 10 times and
     // store the average results in the "benchmark.txt" file
-    for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      // store randomly-selected UPC from the master list
+      UPC* upc = new UPC(full_list->get(rand() % (i+1)));
+
       // execute array search test
       array_time = clock();
       try {
@@ -63,9 +63,9 @@ int main() {
       bst_time = clock() - bst_time;
       avg_bst += bst_time;
     }
-
-    prev = i;
     file << i << "," << avg_array/10 << "," << avg_bst/10 << "," << "\n";
+    prev = i;
+
   }
 
 }
