@@ -1,5 +1,6 @@
 #include "BST.h"
 #include "SearchArray.h"
+#include "UPC.h"
 #include <time.h>
 
 SearchArray<UPC>* full_list = new SearchArray<UPC>();

@@ -1,15 +1,35 @@
-all: main clean
+all: BSTScanner ArrayScanner Benchmark
 
-main: Main.o Passenger.o
-	g++ Main.cpp Passenger.cpp -o main
+#
+# Executable file dependencies
+#
+Benchmark : Benchmark.o UPC.o 
+	g++ Benchmark.o UPC.o -o Benchmark
 
-Main.o: Main.cpp LinkedList.h OrderedLinkedList.h ElementNotFoundException.h Passenger.h  
-	g++ -c Main.cpp
+BSTScanner : BarcodeBSTScanner.o UPC.o
+	g++ BarcodeBSTScanner.o UPC.o -o BSTScanner
 
-Benchmark.o: Benchmark.cpp BST.h UPC.h
-	cc -c Benchmark.cpp
+ArrayScanner : BarcodeArrayScanner.o UPC.o
+	g++ BarcodeArrayScanner.o UPC.o -o ArrayScanner
 
-clean:
-	rm *.o
-	rm benchmark
-	rm BarcodeBSTScanner
+#
+# Object file dependencies
+#
+
+Benchmark.o : Benchmark.cpp UPC.h SearchArray.h
+	gcc -c Benchmark.cpp
+
+UPC.o : UPC.cpp UPC.h
+	gcc -c UPC.cpp
+
+BarcodeArrayScanner.o : BarcodeArrayScanner.cpp UPC.h BST.h 
+	gcc -c BarcodeArrayScanner.cpp
+
+BarcodeBSTScanner.o : BarcodeBSTScanner.cpp UPC.h BST.h 
+	gcc -c BarcodeBSTScanner.cpp
+
+#
+# make clean commands
+#
+clean :
+	rm Benchmark BSTScanner ArrayScanner *.o Benchmark.txt
