@@ -41,14 +41,39 @@ void UPC::setData(std::string& _data) {
 
 // FUNCTIONS //
 
+/*
+ * Override less-than operator; returns
+ * true if the @param upc argument has a
+ * UPC code lower than this instance
+ */
 bool UPC::operator<(UPC& upc) {
   return code < upc.getUPC();
 }
 
+/*
+ * Override the equals operator; returns true
+ * if the @param upc argument has the same
+ * UPC code as this instance
+ */
 bool UPC::operator==(UPC& upc) {
   return upc.getUPC() == code;
 }
 
+/*
+ * Override the greater-than operator; returns
+ * true if the @param upc argument has a higher
+ * UPC code than this instance
+ */
 bool UPC::operator>(UPC& upc) {
   return code > upc.getUPC();
+}
+
+/*
+ * Return a hash code for this UPC
+ * object, evaluated relative to the
+ * UPC code of this instance, and the
+ * @param table_size
+ */
+int UPC::hash(int table_size) {
+    return (code / 7) % table_size;
 }

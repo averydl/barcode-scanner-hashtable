@@ -36,6 +36,7 @@
     bool operator<(UPC&);
     bool operator==(UPC&);
     bool operator>(UPC&);
+    int hash(int);
 
   private:
     // FIELDS //

@@ -4,19 +4,19 @@
 #include <iostream>
 
 template <class T>
-struct node {
+struct list_node {
 	T data;
-	node<T>* left;	//left child
-	node<T>* right; //left child
+	list_node<T>* left;	//left child
+	list_node<T>* right; //left child
 };
 
 template <class T>
 class BST {
-	node<T>* root;
+	list_node<T>* root;
 
 	public:
 		BST(){root = NULL;}	    // constructor for empty tree
-		void initialize();			// deletes all nodes in the BST
+		void initialize();			// deletes all list_nodes in the BST
 		void insert(T&);	    	// add element to tree (maintain ordering)
 		void printPreOrder();		// print elements in pre-order
 		void printInOrder();		// print elements in-order
@@ -27,13 +27,13 @@ class BST {
 		T findMax();		    		// returns the 'maximum' element in the BST
 		T findMin(); 		    		// returns the 'minimum' element in the BST
 	private:
-		void deleteNode(node<T>*&, T&);	// removes the element if it exists in BST
-		void insert(node<T>*&, T&);     // recursive helper function to insert element in BST
-		void printPreOrder(node<T>*);		// recursive helper function to print elements in pre-order
-		void printInOrder(node<T>*);		// recursive helper function to print elements in-order
-		void printPostOrder(node<T>*);	// recursive helper function to print elements in post-order
-		T findMax(node<T>*);    	  // recursive helper function to find maximum element of the BST
-		T search(node<T>*, T&);      // recursive helper function to find out if an element is in the BST
+		void deleteNode(list_node<T>*&, T&);	// removes the element if it exists in BST
+		void insert(list_node<T>*&, T&);     // recursive helper function to insert element in BST
+		void printPreOrder(list_node<T>*);		// recursive helper function to print elements in pre-order
+		void printInOrder(list_node<T>*);		// recursive helper function to print elements in-order
+		void printPostOrder(list_node<T>*);	// recursive helper function to print elements in post-order
+		T findMax(list_node<T>*);    	  // recursive helper function to find maximum element of the BST
+		T search(list_node<T>*, T&);      // recursive helper function to find out if an element is in the BST
 
 };
 
@@ -43,19 +43,19 @@ void BST<T>::insert(T& item) {
 }
 
 template <class T>
-void BST<T>::insert(node<T>*& p, T& item) {
+void BST<T>::insert(list_node<T>*& p, T& item) {
 
-	// if p is null, create a new node w/ item
+	// if p is null, create a new list_node w/ item
 	if(p == NULL) {
-		p = new node<T>;	// create new node pointed by p
-		p-> data = item;	// set new node's data equal to item
+		p = new list_node<T>;	// create new list_node pointed by p
+		p-> data = item;	// set new list_node's data equal to item
 
-		// set both node pointers in the new node to NULL
+		// set both list_node pointers in the new list_node to NULL
 		p->left = NULL;
 		p->right = NULL;
-	} else if(item < (p->data)) { // if item is less-than current node, insert in left subtree
+	} else if(item < (p->data)) { // if item is less-than current list_node, insert in left subtree
 		insert(p->left, item);
-	} else { // if the item is greater-than current node, insert in right subtree
+	} else { // if the item is greater-than current list_node, insert in right subtree
 		insert(p->right, item);
 	}
 }
@@ -76,7 +76,7 @@ void BST<T>::printPostOrder() {
 }
 
 template <class T>
-void BST<T>::printPreOrder(node<T>* p) {
+void BST<T>::printPreOrder(list_node<T>* p) {
 	if(p != NULL) {
 		std::cout << (p->data) << std::endl;
 		printPreOrder(p->left);
@@ -85,7 +85,7 @@ void BST<T>::printPreOrder(node<T>* p) {
 }
 
 template <class T>
-void BST<T>::printInOrder(node<T>* p) {
+void BST<T>::printInOrder(list_node<T>* p) {
 	if(p != NULL) {
 		printPreOrder(p->left);
 		std::cout << (p->data) << std::endl;
@@ -94,7 +94,7 @@ void BST<T>::printInOrder(node<T>* p) {
 }
 
 template <class T>
-void BST<T>::printPostOrder(node<T>* p) {
+void BST<T>::printPostOrder(list_node<T>* p) {
 	if(p != NULL) {
 		printPreOrder(p->left);
 		printPreOrder(p->right);
@@ -109,7 +109,7 @@ T BST<T>::search(T& item) {
 }
 
 template <class T>
-T BST<T>::search(node<T>* p, T& item) {
+T BST<T>::search(list_node<T>* p, T& item) {
 	if(p == NULL)
 		throw std::exception();
 	else if(item < p->data)
@@ -126,7 +126,7 @@ T BST<T>::findMax() {
 }
 
 template <class T>
-T BST<T>::findMax(node<T>* p) {
+T BST<T>::findMax(list_node<T>* p) {
 	if(p==NULL)
 		throw std::exception();
 	else if (p->right == NULL)
@@ -136,16 +136,16 @@ T BST<T>::findMax(node<T>* p) {
 
 }
 template <class T>
-void BST<T>::deleteNode(node<T>*& p, T& item) {
+void BST<T>::deleteNode(list_node<T>*& p, T& item) {
 	if(p == NULL)
 		return;
-	node<T>* temp = p;
+	list_node<T>* temp = p;
 	if(item < p->data)
 		deleteNode(p->left, item);
 	else if(item > p->data)
 		deleteNode(p->right, item);
 
-	// element found; handle three cases - case 1: leaf node,
+	// element found; handle three cases - case 1: leaf list_node,
 	// case 2: one child, case 3: two children
 	else {
 		if(p->right != NULL && p->left != NULL) { //case 3

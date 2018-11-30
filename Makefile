@@ -16,7 +16,7 @@ ArrayScanner : BarcodeArrayScanner.o UPC.o
 # Object file dependencies
 #
 
-Benchmark.o : Benchmark.cpp UPC.h SearchArray.h
+Benchmark.o : Benchmark.cpp UPC.h SearchArray.h HashTable.h LinkedList.h
 	gcc -c Benchmark.cpp
 
 UPC.o : UPC.cpp UPC.h
